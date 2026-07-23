@@ -16,7 +16,10 @@ const PLATFORMS = [
     guides: {
       x: [150, 300, 1330, 2360, 2510],
       y: [80, 160, 570, 980, 1060]
-    }
+    },
+    mockupType: 'artist-header',
+    accent: '#1ED760',
+    platformLabel: 'Spotify'
   },
   {
     id: 'youtube-banner',
@@ -29,7 +32,8 @@ const PLATFORMS = [
     guides: {
       x: [507, 1280, 2053],
       y: [509, 720, 932]
-    }
+    },
+    mockupType: 'youtube-channel'
   },
   {
     id: 'youtube-thumbnail',
@@ -42,7 +46,8 @@ const PLATFORMS = [
     guides: {
       x: [160, 640, 1120],
       y: [100, 360, 620]
-    }
+    },
+    mockupType: 'youtube-thumbnail'
   },
   {
     id: 'deezer',
@@ -55,7 +60,10 @@ const PLATFORMS = [
     guides: {
       x: [300, 1200, 2100],
       y: [110, 470, 830]
-    }
+    },
+    mockupType: 'artist-header',
+    accent: '#A238FF',
+    platformLabel: 'Deezer'
   },
   {
     id: 'amazon',
@@ -68,7 +76,10 @@ const PLATFORMS = [
     guides: {
       x: [200, 960, 1720],
       y: [120, 720, 1320]
-    }
+    },
+    mockupType: 'artist-header',
+    accent: '#00A8E1',
+    platformLabel: 'Amazon Music'
   }
 ];
 
@@ -136,6 +147,190 @@ function createGuideLabel(axis, position, total) {
 }
 
 /**
+ * Construye el mockup de "página de artista" (Spotify, Deezer, Amazon Music):
+ * degradado inferior + nombre, stats y botones superpuestos sobre la imagen.
+ */
+function buildArtistHeaderMockup(platform) {
+  const overlay = document.createElement('div');
+  overlay.className = 'mockup-overlay mockup-artist-header';
+  overlay.style.setProperty('--accent', platform.accent);
+
+  const scrim = document.createElement('div');
+  scrim.className = 'mockup-scrim';
+  overlay.appendChild(scrim);
+
+  const platformTag = document.createElement('span');
+  platformTag.className = 'mockup-platform-tag';
+  platformTag.textContent = platform.platformLabel;
+  overlay.appendChild(platformTag);
+
+  const info = document.createElement('div');
+  info.className = 'mockup-info';
+
+  const badgeRow = document.createElement('div');
+  badgeRow.className = 'mockup-badge-row';
+
+  const badge = document.createElement('span');
+  badge.className = 'mockup-verified-badge';
+  badge.textContent = '✓';
+
+  const verifiedText = document.createElement('span');
+  verifiedText.className = 'mockup-verified-text';
+  verifiedText.textContent = 'Artista verificado';
+
+  badgeRow.appendChild(badge);
+  badgeRow.appendChild(verifiedText);
+
+  const name = document.createElement('p');
+  name.className = 'mockup-artist-name';
+  name.textContent = 'Nombre del Artista';
+
+  const stats = document.createElement('p');
+  stats.className = 'mockup-stats';
+  stats.textContent = '1,234,567 oyentes mensuales';
+
+  const buttons = document.createElement('div');
+  buttons.className = 'mockup-buttons';
+
+  const playBtn = document.createElement('span');
+  playBtn.className = 'mockup-play-btn';
+
+  const followBtn = document.createElement('span');
+  followBtn.className = 'mockup-follow-btn';
+  followBtn.textContent = 'Seguir';
+
+  const moreBtn = document.createElement('span');
+  moreBtn.className = 'mockup-more-btn';
+  moreBtn.textContent = '···';
+
+  buttons.appendChild(playBtn);
+  buttons.appendChild(followBtn);
+  buttons.appendChild(moreBtn);
+
+  info.appendChild(badgeRow);
+  info.appendChild(name);
+  info.appendChild(stats);
+  info.appendChild(buttons);
+  overlay.appendChild(info);
+
+  return { overlay, below: null };
+}
+
+/**
+ * Construye el mockup de canal de YouTube: recorte de zona segura sobre
+ * la imagen y la barra de avatar / nombre / suscribirse debajo, tal como
+ * se ve en la página real del canal.
+ */
+function buildYoutubeChannelMockup(platform) {
+  const overlay = document.createElement('div');
+  overlay.className = 'mockup-overlay mockup-yt-dim';
+
+  const safeGuide = platform.guides;
+  const safeLeft = (safeGuide.x[0] / platform.width) * 100;
+  const safeRight = 100 - (safeGuide.x[safeGuide.x.length - 1] / platform.width) * 100;
+  const safeTop = (safeGuide.y[0] / platform.height) * 100;
+  const safeBottom = 100 - (safeGuide.y[safeGuide.y.length - 1] / platform.height) * 100;
+
+  const safeBox = document.createElement('div');
+  safeBox.className = 'mockup-safe-dim';
+  safeBox.style.left = safeLeft + '%';
+  safeBox.style.right = safeRight + '%';
+  safeBox.style.top = safeTop + '%';
+  safeBox.style.bottom = safeBottom + '%';
+  overlay.appendChild(safeBox);
+
+  const safeLabel = document.createElement('span');
+  safeLabel.className = 'mockup-safe-label';
+  safeLabel.textContent = 'Zona segura (visible en todos los dispositivos)';
+  overlay.appendChild(safeLabel);
+
+  const below = document.createElement('div');
+  below.className = 'mockup-below mockup-yt-below';
+
+  const avatar = document.createElement('span');
+  avatar.className = 'mockup-yt-avatar';
+
+  const infoWrap = document.createElement('div');
+  infoWrap.className = 'mockup-yt-info';
+
+  const nameRow = document.createElement('div');
+  nameRow.className = 'mockup-yt-name-row';
+
+  const nameText = document.createElement('span');
+  nameText.className = 'mockup-yt-name';
+  nameText.textContent = 'Nombre del Canal';
+
+  const check = document.createElement('span');
+  check.className = 'mockup-yt-check';
+  check.textContent = '✓';
+
+  nameRow.appendChild(nameText);
+  nameRow.appendChild(check);
+
+  const subText = document.createElement('p');
+  subText.className = 'mockup-yt-sub';
+  subText.textContent = '@usuario · 128 K suscriptores · 42 videos';
+
+  infoWrap.appendChild(nameRow);
+  infoWrap.appendChild(subText);
+
+  const subBtn = document.createElement('span');
+  subBtn.className = 'mockup-yt-subscribe';
+  subBtn.textContent = 'Suscribirse';
+
+  below.appendChild(avatar);
+  below.appendChild(infoWrap);
+  below.appendChild(subBtn);
+
+  return { overlay, below };
+}
+
+/**
+ * Construye el mockup de miniatura de YouTube: badge de duración sobre la
+ * imagen y la fila de título / canal / vistas debajo, como en el feed real.
+ */
+function buildYoutubeThumbnailMockup() {
+  const overlay = document.createElement('div');
+  overlay.className = 'mockup-overlay mockup-yt-thumb-overlay';
+
+  const duration = document.createElement('span');
+  duration.className = 'mockup-duration-badge';
+  duration.textContent = '12:34';
+  overlay.appendChild(duration);
+
+  const below = document.createElement('div');
+  below.className = 'mockup-below mockup-yt-video-below';
+
+  const avatar = document.createElement('span');
+  avatar.className = 'mockup-yt-avatar mockup-yt-avatar-small';
+
+  const infoWrap = document.createElement('div');
+  infoWrap.className = 'mockup-yt-video-info';
+
+  const title = document.createElement('p');
+  title.className = 'mockup-yt-video-title';
+  title.textContent = 'Título del video que aparecería aquí, en hasta dos líneas';
+
+  const meta = document.createElement('p');
+  meta.className = 'mockup-yt-video-meta';
+  meta.textContent = 'Nombre del Canal · 45 K vistas · hace 2 días';
+
+  infoWrap.appendChild(title);
+  infoWrap.appendChild(meta);
+
+  below.appendChild(avatar);
+  below.appendChild(infoWrap);
+
+  return { overlay, below };
+}
+
+const MOCKUP_BUILDERS = {
+  'artist-header': buildArtistHeaderMockup,
+  'youtube-channel': buildYoutubeChannelMockup,
+  'youtube-thumbnail': buildYoutubeThumbnailMockup
+};
+
+/**
  * Construye la tarjeta completa de una plataforma.
  */
 function buildPlatformCard(platform) {
@@ -191,11 +386,21 @@ function buildPlatformCard(platform) {
 
   const guideOverlay = buildGuideOverlay(platform);
 
+  const mockupBuilder = MOCKUP_BUILDERS[platform.mockupType];
+  const mockup = mockupBuilder ? mockupBuilder(platform) : { overlay: null, below: null };
+
   inner.appendChild(img);
   inner.appendChild(placeholder);
+  if (mockup.overlay) {
+    inner.appendChild(mockup.overlay);
+  }
   inner.appendChild(guideOverlay);
   frame.appendChild(inner);
   card.appendChild(frame);
+
+  if (mockup.below) {
+    card.appendChild(mockup.below);
+  }
 
   // Controles
   const controls = document.createElement('div');
@@ -259,6 +464,26 @@ function buildPlatformCard(platform) {
   controls.appendChild(restoreBtn);
   controls.appendChild(viewBtn);
   controls.appendChild(guidesBtn);
+
+  if (mockup.overlay || mockup.below) {
+    const mockupBtn = document.createElement('button');
+    mockupBtn.className = 'btn';
+    mockupBtn.type = 'button';
+    mockupBtn.textContent = 'Ver mockup de plataforma';
+    mockupBtn.addEventListener('click', () => {
+      const willActivate = !mockupBtn.classList.contains('active');
+      if (mockup.overlay) {
+        mockup.overlay.classList.toggle('active', willActivate);
+      }
+      if (mockup.below) {
+        mockup.below.classList.toggle('active', willActivate);
+      }
+      mockupBtn.classList.toggle('active', willActivate);
+      mockupBtn.textContent = willActivate ? 'Ocultar mockup' : 'Ver mockup de plataforma';
+    });
+    controls.appendChild(mockupBtn);
+  }
+
   controls.appendChild(fileInput);
   card.appendChild(controls);
 
