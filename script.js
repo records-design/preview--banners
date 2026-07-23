@@ -356,10 +356,14 @@ function buildPlatformCard(platform) {
   // Área de imagen
   const frame = document.createElement('div');
   frame.className = 'image-frame';
-  frame.style.aspectRatio = platform.width + ' / ' + platform.height;
 
   const inner = document.createElement('div');
   inner.className = 'image-frame-inner';
+  // El aspect-ratio va en el elemento sin padding: si se pusiera en .image-frame,
+  // el padding (con box-sizing: border-box) desplazaría la proporción real del
+  // área de imagen respecto a la de la plataforma, generando barras negras
+  // aunque el JPG tenga el tamaño exacto.
+  inner.style.aspectRatio = platform.width + ' / ' + platform.height;
 
   const img = document.createElement('img');
   img.alt = platform.name;
