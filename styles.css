@@ -1,0 +1,251 @@
+/* ============================================
+   Music Banner Preview Studio — estilos
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #F4F4F4;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #202020;
+}
+
+/* Header */
+
+.page-header {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 12px;
+  text-align: left;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+  color: #202020;
+}
+
+.page-subtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #777777;
+}
+
+/* Lista de plataformas */
+
+.platform-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 20px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* Tarjeta */
+
+.platform-card {
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+
+.platform-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.platform-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #202020;
+}
+
+.platform-meta {
+  margin: 0;
+  font-size: 12px;
+  color: #777777;
+}
+
+/* Área de imagen */
+
+.image-frame {
+  position: relative;
+  width: 100%;
+  background: #1E1E1E;
+  border-radius: 6px;
+  padding: 14px;
+  overflow: hidden;
+}
+
+.image-frame-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.image-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.image-frame img.hidden {
+  display: none;
+}
+
+/* Placeholder de imagen no encontrada */
+
+.image-placeholder {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  background: #2A2A2A;
+  color: #999999;
+  font-size: 13px;
+  border-radius: 4px;
+}
+
+.image-placeholder.visible {
+  display: flex;
+}
+
+/* Superposición de guías */
+
+.guide-overlay {
+  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.guide-overlay.active {
+  display: block;
+}
+
+.guide-line-v {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(0, 255, 255, 0.6);
+}
+
+.guide-line-h {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: rgba(0, 255, 255, 0.6);
+}
+
+.guide-line-center {
+  background: rgba(0, 255, 255, 0.85);
+}
+
+.guide-label {
+  position: absolute;
+  font-size: 9px;
+  line-height: 1;
+  color: #E0FFFF;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 2px 3px;
+  border-radius: 2px;
+  white-space: nowrap;
+  transform: translate(2px, 2px);
+}
+
+.guide-label-v {
+  top: 0;
+}
+
+.guide-label-h {
+  left: 0;
+}
+
+/* Controles */
+
+.platform-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.btn {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  color: #202020;
+  background: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 6px;
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.btn:hover {
+  background: #F4F4F4;
+  border-color: #CCCCCC;
+}
+
+.btn.active {
+  background: #202020;
+  color: #FFFFFF;
+  border-color: #202020;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-restore {
+  display: none;
+  color: #777777;
+}
+
+.btn-restore.visible-inline {
+  display: inline-block;
+}
+
+.file-input-hidden {
+  display: none;
+}
+
+/* Responsive */
+
+@media (max-width: 640px) {
+  .page-header {
+    padding: 16px 14px 8px;
+  }
+
+  .platform-list {
+    padding: 8px 14px 40px;
+    gap: 16px;
+  }
+
+  .platform-card {
+    padding: 14px;
+  }
+}
