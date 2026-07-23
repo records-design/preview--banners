@@ -197,7 +197,111 @@ body {
   display: block;
 }
 
-/* Mockup: página de artista (Spotify / Deezer / Amazon Music) */
+/* Mockup: vista previa de Spotify for Artists */
+
+.mockup-scrim-light {
+  height: 45%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+}
+
+.mockup-spotify-info {
+  position: absolute;
+  left: 4%;
+  right: 18%;
+  bottom: 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqw;
+  color: #ffffff;
+}
+
+.mockup-spotify-listening {
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+  font-size: 1.6cqw;
+  font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.mockup-spotify-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.2cqw;
+  height: 1.3cqw;
+  flex-shrink: 0;
+}
+
+.mockup-spotify-bars span {
+  display: block;
+  width: 0.3cqw;
+  min-width: 2px;
+  background: #ffffff;
+  border-radius: 1px;
+}
+
+.mockup-spotify-bars span:nth-child(1) {
+  height: 40%;
+}
+
+.mockup-spotify-bars span:nth-child(2) {
+  height: 100%;
+}
+
+.mockup-spotify-bars span:nth-child(3) {
+  height: 65%;
+}
+
+.mockup-spotify-name {
+  margin: 0;
+  font-size: 7cqw;
+  font-weight: 800;
+  line-height: 1.05;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.mockup-spotify-actions {
+  position: absolute;
+  right: 4%;
+  bottom: 6%;
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+}
+
+.mockup-view-profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5cqw;
+  background: rgba(84, 42, 156, 0.6);
+  border-radius: 999px;
+  padding: 0.6cqw 1.3cqw;
+  font-size: 1.4cqw;
+  font-weight: 700;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.mockup-eye-icon {
+  font-size: 1.4cqw;
+}
+
+.mockup-settings-btn {
+  width: 3cqw;
+  height: 3cqw;
+  min-width: 26px;
+  min-height: 26px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6cqw;
+  color: #ffffff;
+}
+
+/* Mockup: página de artista (Deezer / Amazon Music) */
 
 .mockup-scrim {
   position: absolute;

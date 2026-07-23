@@ -17,9 +17,7 @@ const PLATFORMS = [
       x: [150, 300, 1330, 2360, 2510],
       y: [80, 160, 570, 980, 1060]
     },
-    mockupType: 'artist-header',
-    accent: '#1ED760',
-    platformLabel: 'Spotify'
+    mockupType: 'spotify-for-artists'
   },
   {
     id: 'youtube-banner',
@@ -147,7 +145,74 @@ function createGuideLabel(axis, position, total) {
 }
 
 /**
- * Construye el mockup de "página de artista" (Spotify, Deezer, Amazon Music):
+ * Construye el mockup de la vista previa de Spotify for Artists: indicador
+ * de oyentes en vivo + nombre del artista abajo a la izquierda, y los
+ * botones "Ver perfil" / ajustes abajo a la derecha, tal como se ve en el
+ * panel de edición de imagen de Spotify for Artists.
+ */
+function buildSpotifyForArtistsMockup() {
+  const overlay = document.createElement('div');
+  overlay.className = 'mockup-overlay mockup-spotify-dashboard';
+
+  const scrim = document.createElement('div');
+  scrim.className = 'mockup-scrim mockup-scrim-light';
+  overlay.appendChild(scrim);
+
+  const info = document.createElement('div');
+  info.className = 'mockup-spotify-info';
+
+  const listening = document.createElement('div');
+  listening.className = 'mockup-spotify-listening';
+
+  const bars = document.createElement('span');
+  bars.className = 'mockup-spotify-bars';
+  for (let i = 0; i < 3; i += 1) {
+    bars.appendChild(document.createElement('span'));
+  }
+
+  const listeningText = document.createElement('span');
+  listeningText.textContent = '2 personas escuchando ahora';
+
+  listening.appendChild(bars);
+  listening.appendChild(listeningText);
+
+  const name = document.createElement('p');
+  name.className = 'mockup-spotify-name';
+  name.textContent = 'Nombre del Artista';
+
+  info.appendChild(name);
+  info.appendChild(listening);
+  overlay.appendChild(info);
+
+  const actions = document.createElement('div');
+  actions.className = 'mockup-spotify-actions';
+
+  const viewProfileBtn = document.createElement('span');
+  viewProfileBtn.className = 'mockup-view-profile-btn';
+
+  const eyeIcon = document.createElement('span');
+  eyeIcon.className = 'mockup-eye-icon';
+  eyeIcon.textContent = '👁';
+
+  const viewProfileText = document.createElement('span');
+  viewProfileText.textContent = 'Ver perfil';
+
+  viewProfileBtn.appendChild(eyeIcon);
+  viewProfileBtn.appendChild(viewProfileText);
+
+  const settingsBtn = document.createElement('span');
+  settingsBtn.className = 'mockup-settings-btn';
+  settingsBtn.textContent = '⚙';
+
+  actions.appendChild(viewProfileBtn);
+  actions.appendChild(settingsBtn);
+  overlay.appendChild(actions);
+
+  return { overlay, below: null };
+}
+
+/**
+ * Construye el mockup de "página de artista" (Deezer, Amazon Music):
  * degradado inferior + nombre, stats y botones superpuestos sobre la imagen.
  */
 function buildArtistHeaderMockup(platform) {
@@ -325,6 +390,7 @@ function buildYoutubeThumbnailMockup() {
 }
 
 const MOCKUP_BUILDERS = {
+  'spotify-for-artists': buildSpotifyForArtistsMockup,
   'artist-header': buildArtistHeaderMockup,
   'youtube-channel': buildYoutubeChannelMockup,
   'youtube-thumbnail': buildYoutubeThumbnailMockup
