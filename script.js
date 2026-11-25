@@ -649,11 +649,66 @@ function buildPlatformCard(platform) {
   return card;
 }
 
+/**
+ * Modo "abrir desde un link": permite que otro sistema muestre directamente
+ * el mockup de una plataforma con una imagen propia.
+ *
+ *   ?plataforma=tidal&imagen=https://.../banner.jpg
+ *
+ * `plataforma` acepta el id (spotify, tidal, youtube-banner, youtube-thumbnail,
+ * deezer, amazon) o el nombre ("Spotify Header / Banner"). `imagen` es
+ * opcional: sin ella se usa la imagen del proyecto. También se aceptan
+ * `platform` e `image`. Con `plataforma`, se muestra solo esa tarjeta con
+ * el mockup ya activado.
+ */
+function normalizeKey(text) {
+  return String(text)
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]/g, '');
+}
+
+function findPlatform(query) {
+  const q = normalizeKey(query);
+  if (!q) return null;
+  return (
+    PLATFORMS.find((p) => normalizeKey(p.id) === q || normalizeKey(p.name) === q) ||
+    PLATFORMS.find((p) => normalizeKey(p.name).includes(q) || q.includes(normalizeKey(p.id)))
+  ) || null;
+}
+
 function renderPlatforms() {
   const list = document.getElementById('platform-list');
-  PLATFORMS.forEach((platform) => {
-    list.appendChild(buildPlatformCard(platform));
-  });
+  const params = new URLSearchParams(window.location.search);
+  const platformParam = params.get('plataforma') || params.get('platform');
+  const imageParam = params.get('imagen') || params.get('image');
+
+  if (!platformParam) {
+    PLATFORMS.forEach((platform) => {
+      list.appendChild(buildPlatformCard(platform));
+    });
+    return;
+  }
+
+  document.body.classList.add('link-mode');
+  const platform = findPlatform(platformParam);
+
+  if (!platform) {
+    const msg = document.createElement('p');
+    msg.className = 'link-mode-error';
+    msg.textContent = 'No hay vista previa para la plataforma "' + platformParam +
+      '". Disponibles: ' + PLATFORMS.map((p) => p.id).join(', ') + '.';
+    list.appendChild(msg);
+    return;
+  }
+
+  const card = buildPlatformCard(imageParam ? { ...platform, image: imageParam } : platform);
+  list.appendChild(card);
+
+  const mockupBtn = [...card.querySelectorAll('button')]
+    .find((b) => b.textContent === 'Ver mockup de plataforma');
+  if (mockupBtn) mockupBtn.click();
 }
 
 document.addEventListener('DOMContentLoaded', renderPlatforms);

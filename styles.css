@@ -853,3 +853,20 @@ body {
     padding: 14px;
   }
 }
+
+/* Modo "abrir desde un link": solo la tarjeta pedida, sin el título de la página */
+
+body.link-mode .page-header {
+  display: none;
+}
+
+body.link-mode .platform-list {
+  padding-top: 20px;
+}
+
+.link-mode-error {
+  padding: 20px;
+  background: #fff4e5;
+  border-radius: 8px;
+  color: #8a4b00;
+}
