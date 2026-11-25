@@ -15,14 +15,35 @@
 
   <div class="entregable">
     <strong>Spotify Header / Banner</strong>
-    <p><button onclick="abrirPreviewBanner('Spotify Header / Banner', new URL('../assets/spotify.jpg', location.href).href)">👁 Preview</button></p>
+    <p><button data-entregable="Spotify Header / Banner" data-imagen="../assets/spotify.jpg">👁 Preview</button></p>
   </div>
 
   <div class="entregable">
     <strong>TIDAL Banner</strong>
-    <p><button onclick="abrirPreviewBanner('TIDAL Banner', new URL('../assets/spotify.jpg', location.href).href)">👁 Preview</button></p>
+    <p><button data-entregable="TIDAL Banner" data-imagen="../assets/spotify.jpg">👁 Preview</button></p>
   </div>
 
+  <div class="entregable">
+    <strong>YouTube Channel Banner</strong>
+    <p><button data-entregable="YouTube Channel Banner" data-imagen="../assets/spotify.jpg">👁 Preview</button></p>
+  </div>
+
+  <div class="entregable">
+    <strong>Amazon Music Banner</strong>
+    <p><button data-entregable="Amazon Music Banner" data-imagen="../assets/spotify.jpg">👁 Preview</button></p>
+  </div>
+
+  <p style="color:#777">En la demo se usa la misma imagen de ejemplo para todas las plataformas. En el sistema, cada botón usa la imagen subida.</p>
+
   <script src="preview-modal.js"></script>
+  <script>
+    // Cada botón abre el preview con su entregable y su imagen (URL absoluta).
+    document.querySelectorAll('button[data-entregable]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var imagen = new window.URL(btn.dataset.imagen, window.location.href).href;
+        abrirPreviewBanner(btn.dataset.entregable, imagen);
+      });
+    });
+  </script>
 </body>
 </html>
