@@ -197,108 +197,178 @@ body {
   display: block;
 }
 
-/* Mockup: vista previa de Spotify for Artists */
+/* Mockup: página de artista de Spotify (app de escritorio) */
 
-.mockup-scrim-light {
-  height: 45%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0));
+.image-frame.hidden {
+  display: none;
 }
 
-.mockup-spotify-info {
-  position: absolute;
-  left: 4%;
-  right: 18%;
-  bottom: 6%;
-  display: flex;
-  flex-direction: column;
-  gap: 0.6cqw;
-  color: #ffffff;
+.mockup-page {
+  display: none;
 }
 
-.mockup-spotify-listening {
-  display: flex;
-  align-items: center;
-  gap: 0.6cqw;
-  font-size: 1.6cqw;
-  font-weight: 600;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-}
-
-.mockup-spotify-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 0.2cqw;
-  height: 1.3cqw;
-  flex-shrink: 0;
-}
-
-.mockup-spotify-bars span {
+.mockup-page.active {
   display: block;
-  width: 0.3cqw;
-  min-width: 2px;
-  background: #ffffff;
-  border-radius: 1px;
 }
 
-.mockup-spotify-bars span:nth-child(1) {
-  height: 40%;
-}
-
-.mockup-spotify-bars span:nth-child(2) {
-  height: 100%;
-}
-
-.mockup-spotify-bars span:nth-child(3) {
-  height: 65%;
-}
-
-.mockup-spotify-name {
-  margin: 0;
-  font-size: 7cqw;
-  font-weight: 800;
-  line-height: 1.05;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
-}
-
-.mockup-spotify-actions {
-  position: absolute;
-  right: 4%;
-  bottom: 6%;
-  display: flex;
-  align-items: center;
-  gap: 0.8cqw;
-}
-
-.mockup-view-profile-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.5cqw;
-  background: rgba(84, 42, 156, 0.6);
-  border-radius: 999px;
-  padding: 0.6cqw 1.3cqw;
-  font-size: 1.4cqw;
-  font-weight: 700;
+.mockup-sp-page {
+  container-type: inline-size;
+  background: #121212;
+  border-radius: 8px;
+  overflow: hidden;
   color: #ffffff;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+/* Spotify muestra el banner más panorámico que el archivo 7:3 y lo recorta
+   centrado: por eso el texto y las caras deben ir en la zona central. */
+.mockup-sp-hero {
+  position: relative;
+  aspect-ratio: 1942 / 548;
+  overflow: hidden;
+  background: #000;
+}
+
+.mockup-sp-hero-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.mockup-sp-hero-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0) 55%);
+}
+
+.mockup-sp-hero-info {
+  position: absolute;
+  left: 2.3cqw;
+  right: 2.3cqw;
+  bottom: 2.7cqw;
+}
+
+.mockup-sp-name {
+  margin: 0;
+  font-size: 7.2cqw;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
   white-space: nowrap;
 }
 
-.mockup-eye-icon {
+.mockup-sp-listeners {
+  margin: 2.2cqw 0 0;
+  font-size: 1.35cqw;
+  font-weight: 400;
+}
+
+.mockup-sp-body {
+  background: linear-gradient(to bottom, #2a2a2a, #121212 22cqw);
+  padding: 2.3cqw 2.3cqw 1.5cqw;
+}
+
+.mockup-sp-actions {
+  display: flex;
+  align-items: center;
+  gap: 2.3cqw;
+}
+
+.mockup-sp-play {
+  position: relative;
+  width: 5.2cqw;
+  height: 5.2cqw;
+  border-radius: 50%;
+  background: #1ed760;
+  flex-shrink: 0;
+}
+
+.mockup-sp-play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  border-left: 1.5cqw solid #000;
+  border-top: 0.95cqw solid transparent;
+  border-bottom: 0.95cqw solid transparent;
+}
+
+.mockup-sp-shuffle {
+  font-size: 2.6cqw;
+  color: #a7a7a7;
+  line-height: 1;
+}
+
+.mockup-sp-follow {
+  border: 1px solid #a7a7a7;
+  border-radius: 999px;
+  padding: 0.7cqw 1.5cqw;
+  font-size: 1.25cqw;
+  font-weight: 700;
+}
+
+.mockup-sp-more {
+  font-size: 1.1cqw;
+  letter-spacing: 0.15em;
+  color: #a7a7a7;
+}
+
+.mockup-sp-section {
+  margin: 3.6cqw 0 1.6cqw;
+  font-size: 2cqw;
+  font-weight: 700;
+}
+
+.mockup-sp-track {
+  display: grid;
+  grid-template-columns: 3.5cqw 3.8cqw 1fr 14cqw 5cqw;
+  align-items: center;
+  gap: 1.2cqw;
+  padding: 0.6cqw 0 0.6cqw 1.6cqw;
+  color: #b3b3b3;
+  font-size: 1.25cqw;
+}
+
+.mockup-sp-track-cover {
+  width: 3.8cqw;
+  height: 3.8cqw;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #5a4a3a, #2b2b2b);
+}
+
+.mockup-sp-track-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3cqw;
+  min-width: 0;
+}
+
+.mockup-sp-track-title {
+  color: #ffffff;
   font-size: 1.4cqw;
 }
 
-.mockup-settings-btn {
-  width: 3cqw;
-  height: 3cqw;
-  min-width: 26px;
-  min-height: 26px;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.18);
+.mockup-sp-track-artist {
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.6cqw;
-  color: #ffffff;
+  gap: 0.5cqw;
+}
+
+.mockup-sp-explicit {
+  background: #b3b3b3;
+  color: #121212;
+  font-size: 0.85cqw;
+  font-weight: 700;
+  padding: 0.1cqw 0.4cqw;
+  border-radius: 2px;
+}
+
+.mockup-sp-track-time {
+  text-align: right;
 }
 
 /* Mockup: página de artista (Deezer / Amazon Music) */

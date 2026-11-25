@@ -7,9 +7,10 @@
 const PLATFORMS = [
   {
     id: 'spotify',
-    name: 'Spotify Artist Header',
+    name: 'Spotify Header / Banner',
     resolution: '2660 × 1140 px',
     ratio: '7:3',
+    formats: 'JPG, JPEG, PNG',
     width: 2660,
     height: 1140,
     image: 'assets/spotify.jpg',
@@ -17,7 +18,7 @@ const PLATFORMS = [
       x: [150, 300, 1330, 2360, 2510],
       y: [80, 160, 570, 980, 1060]
     },
-    mockupType: 'spotify-for-artists'
+    mockupType: 'spotify-desktop'
   },
   {
     id: 'youtube-banner',
@@ -145,70 +146,75 @@ function createGuideLabel(axis, position, total) {
 }
 
 /**
- * Construye el mockup de la vista previa de Spotify for Artists: indicador
- * de oyentes en vivo + nombre del artista abajo a la izquierda, y los
- * botones "Ver perfil" / ajustes abajo a la derecha, tal como se ve en el
- * panel de edición de imagen de Spotify for Artists.
+ * Construye el mockup de la página de artista de Spotify (app de escritorio):
+ * banner recortado como lo recorta Spotify (más panorámico que el 7:3 del
+ * archivo, centrado), nombre gigante y oyentes mensuales sobre la imagen, y
+ * debajo la barra de reproducción (play, aleatorio, Seguir, ···) y "Populares".
+ * Reemplaza al marco de imagen mientras está activo.
  */
-function buildSpotifyForArtistsMockup() {
-  const overlay = document.createElement('div');
-  overlay.className = 'mockup-overlay mockup-spotify-dashboard';
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text) node.textContent = text;
+  return node;
+}
 
-  const scrim = document.createElement('div');
-  scrim.className = 'mockup-scrim mockup-scrim-light';
-  overlay.appendChild(scrim);
+function buildSpotifyDesktopMockup() {
+  const page = el('div', 'mockup-page mockup-sp-page');
 
-  const info = document.createElement('div');
-  info.className = 'mockup-spotify-info';
+  const hero = el('div', 'mockup-sp-hero');
+  const heroImg = el('img', 'mockup-sp-hero-img');
+  heroImg.alt = '';
+  hero.appendChild(heroImg);
+  hero.appendChild(el('div', 'mockup-sp-hero-scrim'));
 
-  const listening = document.createElement('div');
-  listening.className = 'mockup-spotify-listening';
+  const heroInfo = el('div', 'mockup-sp-hero-info');
+  heroInfo.appendChild(el('h3', 'mockup-sp-name', 'Nombre del Artista'));
+  heroInfo.appendChild(el('p', 'mockup-sp-listeners', '12,6 M oyentes mensuales'));
+  hero.appendChild(heroInfo);
+  page.appendChild(hero);
 
-  const bars = document.createElement('span');
-  bars.className = 'mockup-spotify-bars';
-  for (let i = 0; i < 3; i += 1) {
-    bars.appendChild(document.createElement('span'));
-  }
+  const body = el('div', 'mockup-sp-body');
 
-  const listeningText = document.createElement('span');
-  listeningText.textContent = '2 personas escuchando ahora';
+  const actions = el('div', 'mockup-sp-actions');
+  actions.appendChild(el('span', 'mockup-sp-play'));
+  actions.appendChild(el('span', 'mockup-sp-shuffle', '⤨'));
+  actions.appendChild(el('span', 'mockup-sp-follow', 'Seguir'));
+  actions.appendChild(el('span', 'mockup-sp-more', '•••'));
+  body.appendChild(actions);
 
-  listening.appendChild(bars);
-  listening.appendChild(listeningText);
+  body.appendChild(el('h4', 'mockup-sp-section', 'Populares'));
 
-  const name = document.createElement('p');
-  name.className = 'mockup-spotify-name';
-  name.textContent = 'Nombre del Artista';
+  const tracks = [
+    ['Canción 1', 'Nombre del Artista', '179.094.619', '3:53', false],
+    ['Canción 2', 'Nombre del Artista', '565.299.232', '2:25', true]
+  ];
+  tracks.forEach(([title, artist, plays, time, explicit], i) => {
+    const row = el('div', 'mockup-sp-track');
+    row.appendChild(el('span', 'mockup-sp-track-num', String(i + 1)));
+    row.appendChild(el('span', 'mockup-sp-track-cover'));
+    const info = el('div', 'mockup-sp-track-info');
+    info.appendChild(el('span', 'mockup-sp-track-title', title));
+    const sub = el('span', 'mockup-sp-track-artist');
+    if (explicit) sub.appendChild(el('span', 'mockup-sp-explicit', 'E'));
+    sub.appendChild(document.createTextNode(artist));
+    info.appendChild(sub);
+    row.appendChild(info);
+    row.appendChild(el('span', 'mockup-sp-track-plays', plays));
+    row.appendChild(el('span', 'mockup-sp-track-time', time));
+    body.appendChild(row);
+  });
 
-  info.appendChild(name);
-  info.appendChild(listening);
-  overlay.appendChild(info);
+  page.appendChild(body);
 
-  const actions = document.createElement('div');
-  actions.className = 'mockup-spotify-actions';
-
-  const viewProfileBtn = document.createElement('span');
-  viewProfileBtn.className = 'mockup-view-profile-btn';
-
-  const eyeIcon = document.createElement('span');
-  eyeIcon.className = 'mockup-eye-icon';
-  eyeIcon.textContent = '👁';
-
-  const viewProfileText = document.createElement('span');
-  viewProfileText.textContent = 'Ver perfil';
-
-  viewProfileBtn.appendChild(eyeIcon);
-  viewProfileBtn.appendChild(viewProfileText);
-
-  const settingsBtn = document.createElement('span');
-  settingsBtn.className = 'mockup-settings-btn';
-  settingsBtn.textContent = '⚙';
-
-  actions.appendChild(viewProfileBtn);
-  actions.appendChild(settingsBtn);
-  overlay.appendChild(actions);
-
-  return { overlay, below: null };
+  return {
+    overlay: null,
+    below: null,
+    page,
+    setImage(src) {
+      heroImg.src = src;
+    }
+  };
 }
 
 /**
@@ -390,7 +396,7 @@ function buildYoutubeThumbnailMockup() {
 }
 
 const MOCKUP_BUILDERS = {
-  'spotify-for-artists': buildSpotifyForArtistsMockup,
+  'spotify-desktop': buildSpotifyDesktopMockup,
   'artist-header': buildArtistHeaderMockup,
   'youtube-channel': buildYoutubeChannelMockup,
   'youtube-thumbnail': buildYoutubeThumbnailMockup
@@ -413,7 +419,8 @@ function buildPlatformCard(platform) {
 
   const meta = document.createElement('p');
   meta.className = 'platform-meta';
-  meta.textContent = platform.resolution + ' · Relación ' + platform.ratio;
+  meta.textContent = platform.resolution + ' · ' +
+    (platform.formats ? platform.formats : 'Relación ' + platform.ratio);
 
   header.appendChild(title);
   header.appendChild(meta);
@@ -450,14 +457,17 @@ function buildPlatformCard(platform) {
     placeholder.classList.remove('visible');
     img.classList.remove('hidden');
     img.src = src;
+    if (mockup.setImage) {
+      mockup.setImage(src);
+    }
   }
-
-  showImage(platform.image);
 
   const guideOverlay = buildGuideOverlay(platform);
 
   const mockupBuilder = MOCKUP_BUILDERS[platform.mockupType];
   const mockup = mockupBuilder ? mockupBuilder(platform) : { overlay: null, below: null };
+
+  showImage(platform.image);
 
   inner.appendChild(img);
   inner.appendChild(placeholder);
@@ -468,6 +478,9 @@ function buildPlatformCard(platform) {
   frame.appendChild(inner);
   card.appendChild(frame);
 
+  if (mockup.page) {
+    card.appendChild(mockup.page);
+  }
   if (mockup.below) {
     card.appendChild(mockup.below);
   }
@@ -535,7 +548,7 @@ function buildPlatformCard(platform) {
   controls.appendChild(viewBtn);
   controls.appendChild(guidesBtn);
 
-  if (mockup.overlay || mockup.below) {
+  if (mockup.overlay || mockup.below || mockup.page) {
     const mockupBtn = document.createElement('button');
     mockupBtn.className = 'btn';
     mockupBtn.type = 'button';
@@ -547,6 +560,11 @@ function buildPlatformCard(platform) {
       }
       if (mockup.below) {
         mockup.below.classList.toggle('active', willActivate);
+      }
+      if (mockup.page) {
+        // La página completa reemplaza al marco mientras está activa.
+        mockup.page.classList.toggle('active', willActivate);
+        frame.classList.toggle('hidden', willActivate);
       }
       mockupBtn.classList.toggle('active', willActivate);
       mockupBtn.textContent = willActivate ? 'Ocultar mockup' : 'Ver mockup de plataforma';
