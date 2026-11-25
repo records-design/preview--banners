@@ -2,7 +2,38 @@
 
 El preview muestra cómo se ve un banner dentro de cada plataforma (Spotify, TIDAL, YouTube, Deezer, Amazon Music), con los recortes y los elementos que cada una pone encima.
 
-Para usarlo desde el sistema de aprobación, el botón **Preview** solo tiene que abrir este link (en una pestaña nueva o dentro de un `<iframe>`):
+## Integración lista para usar (recomendada)
+
+Al hacer clic en **Preview**, se abre una ventana **encima de la página**, sin salir del sistema.
+
+1. Incluir el script una vez en la página:
+
+```html
+<script src="https://records-design.github.io/preview--banners/integracion/preview-modal.js"></script>
+```
+
+2. En el botón Preview de cada entregable:
+
+```js
+abrirPreviewBanner(nombreDelEntregable, urlPublicaDelArchivoSubido);
+// ej.: abrirPreviewBanner('Spotify Header / Banner', archivo.url);
+```
+
+3. Opcional: mostrar el botón solo donde hay preview.
+
+```js
+if (tienePreviewBanner(nombreDelEntregable)) { /* mostrar botón Preview */ }
+```
+
+La ventana se cierra con la ✕, con un clic afuera o con Esc. Hay una demo funcionando en `integracion/demo.html`.
+
+La URL del archivo subido tiene que poder abrirse desde un navegador sin login (o con un link firmado temporal).
+
+---
+
+## Detalle técnico: el link que usa la ventana
+
+La ventana carga este link en un `<iframe>`. También se puede usar directo:
 
 ```
 https://records-design.github.io/preview--banners/?plataforma=<PLATAFORMA>&imagen=<URL_DE_LA_IMAGEN>

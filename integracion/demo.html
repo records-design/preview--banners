@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Demo botón Preview</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff; padding: 40px; }
+    .entregable { border: 1px solid #cfe0f7; background: #eef5fe; border-radius: 14px; padding: 20px; margin-bottom: 16px; }
+    button { font-size: 16px; padding: 8px 16px; border-radius: 10px; border: 1px solid #ddd; background: #fff; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Demo: botón Preview integrado</h1>
+
+  <div class="entregable">
+    <strong>Spotify Header / Banner</strong>
+    <p><button onclick="abrirPreviewBanner('Spotify Header / Banner', new URL('../assets/spotify.jpg', location.href).href)">👁 Preview</button></p>
+  </div>
+
+  <div class="entregable">
+    <strong>TIDAL Banner</strong>
+    <p><button onclick="abrirPreviewBanner('TIDAL Banner', new URL('../assets/spotify.jpg', location.href).href)">👁 Preview</button></p>
+  </div>
+
+  <script src="preview-modal.js"></script>
+</body>
+</html>
