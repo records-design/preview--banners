@@ -371,6 +371,166 @@ body {
   text-align: right;
 }
 
+/* Mockup: página de TIDAL (web) */
+
+.mockup-td-page {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 2000 / 596;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #000;
+  color: #ffffff;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+/* TIDAL usa el banner de fondo a lo ancho y recorta arriba y abajo. */
+.mockup-td-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.mockup-td-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+.mockup-td-top {
+  position: absolute;
+  top: 2cqw;
+  left: 1.1cqw;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mockup-td-nav {
+  display: flex;
+  gap: 1.5cqw;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 0.6cqw 1.6cqw;
+}
+
+.mockup-td-arrow {
+  font-size: 2.2cqw;
+  line-height: 1;
+}
+
+.mockup-td-arrow-off {
+  opacity: 0.4;
+}
+
+.mockup-td-search {
+  display: flex;
+  align-items: center;
+  gap: 1.4cqw;
+  width: 23cqw;
+  margin-left: 30cqw;
+  background: rgba(40, 40, 40, 0.75);
+  border-radius: 999px;
+  padding: 0.7cqw 1.2cqw;
+  font-size: 1.15cqw;
+  color: #9a9a9a;
+}
+
+.mockup-td-search-icon {
+  font-size: 1.5cqw;
+  color: #cccccc;
+}
+
+.mockup-td-top-right {
+  display: flex;
+  gap: 1.3cqw;
+}
+
+.mockup-td-pill {
+  background: rgba(40, 40, 40, 0.75);
+  border-radius: 999px;
+  padding: 0.75cqw 1.3cqw;
+  font-size: 1.15cqw;
+  white-space: nowrap;
+}
+
+.mockup-td-pill-white {
+  background: #ffffff;
+  color: #000000;
+}
+
+.mockup-td-content {
+  position: absolute;
+  left: 3.7cqw;
+  top: 25.5%;
+  display: flex;
+  align-items: center;
+  gap: 2.6cqw;
+}
+
+.mockup-td-cover {
+  width: 19.8cqw;
+  height: 19.8cqw;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e86fb0, #7c5cd6 50%, #2fb5c9);
+  font-size: 1.4cqw;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.mockup-td-title {
+  margin: 0;
+  font-size: 2.6cqw;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.mockup-td-artists {
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  margin-top: 1.4cqw;
+  font-size: 1.15cqw;
+  color: #e6e6e6;
+}
+
+.mockup-td-artists-icon {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  padding: 0.3cqw 0.8cqw;
+  font-size: 0.9cqw;
+  filter: grayscale(1);
+}
+
+.mockup-td-meta {
+  margin: 2.6cqw 0 0;
+  font-size: 0.85cqw;
+  letter-spacing: 0.12em;
+  white-space: pre;
+  color: #e6e6e6;
+}
+
+.mockup-td-year {
+  display: flex;
+  align-items: center;
+  gap: 0.7cqw;
+  margin-top: 1.6cqw;
+}
+
+.mockup-td-max {
+  background: rgba(60, 50, 10, 0.7);
+  color: #f5d33a;
+  font-weight: 700;
+  border-radius: 6px;
+  padding: 0.4cqw 0.7cqw;
+}
+
 /* Mockup: página de artista (Deezer / Amazon Music) */
 
 .mockup-scrim {

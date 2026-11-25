@@ -21,6 +21,21 @@ const PLATFORMS = [
     mockupType: 'spotify-desktop'
   },
   {
+    id: 'tidal',
+    name: 'TIDAL Banner',
+    resolution: '2400 × 1600 px',
+    ratio: '3:2',
+    formats: 'JPG, JPEG, PNG',
+    width: 2400,
+    height: 1600,
+    image: 'assets/tidal.jpg',
+    guides: {
+      x: [240, 1200, 2160],
+      y: [160, 800, 1440]
+    },
+    mockupType: 'tidal-desktop'
+  },
+  {
     id: 'youtube-banner',
     name: 'YouTube Channel Banner',
     resolution: '2560 × 1440 px',
@@ -395,7 +410,63 @@ function buildYoutubeThumbnailMockup() {
   return { overlay, below };
 }
 
+/**
+ * Construye el mockup de la página de TIDAL (web): el banner ocupa todo el
+ * fondo de la cabecera, oscurecido, con la barra superior (flechas, buscador,
+ * botones), la portada cuadrada a la izquierda y título, artistas, cantidad de
+ * canciones, año y etiqueta MAX a la derecha. Reemplaza al marco mientras está activo.
+ */
+function buildTidalDesktopMockup() {
+  const page = el('div', 'mockup-page mockup-td-page');
+
+  const bg = el('img', 'mockup-td-bg');
+  bg.alt = '';
+  page.appendChild(bg);
+  page.appendChild(el('div', 'mockup-td-scrim'));
+
+  const top = el('div', 'mockup-td-top');
+  const nav = el('div', 'mockup-td-nav');
+  nav.appendChild(el('span', 'mockup-td-arrow', '‹'));
+  nav.appendChild(el('span', 'mockup-td-arrow mockup-td-arrow-off', '›'));
+  top.appendChild(nav);
+  const search = el('div', 'mockup-td-search');
+  search.appendChild(el('span', 'mockup-td-search-icon', '⌕'));
+  search.appendChild(el('span', 'mockup-td-search-text', 'Buscar'));
+  top.appendChild(search);
+  const right = el('div', 'mockup-td-top-right');
+  right.appendChild(el('span', 'mockup-td-pill', 'Descarga TIDAL'));
+  right.appendChild(el('span', 'mockup-td-pill', 'Iniciar sesión'));
+  right.appendChild(el('span', 'mockup-td-pill mockup-td-pill-white', 'Crea una cuenta gratuita'));
+  top.appendChild(right);
+  page.appendChild(top);
+
+  const content = el('div', 'mockup-td-content');
+  content.appendChild(el('div', 'mockup-td-cover', 'Portada'));
+  const info = el('div', 'mockup-td-info');
+  info.appendChild(el('h3', 'mockup-td-title', 'Título del Lanzamiento'));
+  const artists = el('div', 'mockup-td-artists');
+  artists.appendChild(el('span', 'mockup-td-artists-icon', '👤'));
+  artists.appendChild(el('span', '', 'Nombre del Artista'));
+  info.appendChild(artists);
+  info.appendChild(el('p', 'mockup-td-meta', '1 CANCIÓN  (1:35)'));
+  const year = el('p', 'mockup-td-meta mockup-td-year', '2026');
+  year.appendChild(el('span', 'mockup-td-max', 'MAX'));
+  info.appendChild(year);
+  content.appendChild(info);
+  page.appendChild(content);
+
+  return {
+    overlay: null,
+    below: null,
+    page,
+    setImage(src) {
+      bg.src = src;
+    }
+  };
+}
+
 const MOCKUP_BUILDERS = {
+  'tidal-desktop': buildTidalDesktopMockup,
   'spotify-desktop': buildSpotifyDesktopMockup,
   'artist-header': buildArtistHeaderMockup,
   'youtube-channel': buildYoutubeChannelMockup,
