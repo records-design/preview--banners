@@ -53,7 +53,7 @@ Con esos parámetros, la página muestra solo esa plataforma, con el mockup ya a
 | `youtube-banner` | YouTube Channel Banner | 2560 × 1440 |
 | `youtube-thumbnail` | YouTube Thumbnail | 1280 × 720 |
 | `deezer` | Deezer Banner | 2400 × 940 |
-| `amazon` | Amazon Music Artist Banner | 1920 × 1440 |
+| `amazon` | Amazon Music Banner | 2560 × 1440 |
 
 Si llega una plataforma que no existe (por ejemplo, Spotify Canvas, que es un video), la página muestra un aviso con la lista de las disponibles. Lo recomendable es mostrar el botón Preview solo en los entregables de la tabla.
 
