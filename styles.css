@@ -531,6 +531,227 @@ body {
   padding: 0.4cqw 0.7cqw;
 }
 
+/* Mockup: página de canal de YouTube (escritorio) */
+
+.mockup-yc-page {
+  container-type: inline-size;
+  background: #ffffff;
+  color: #0f0f0f;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 0 2.5cqw 1.5cqw;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+.mockup-yc-top {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+  padding: 0.8cqw 0 0.8cqw 8.5cqw;
+}
+
+.mockup-yc-search {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 52cqw;
+  height: 3.4cqw;
+  border: 1px solid #c6c6c6;
+  border-radius: 999px;
+  overflow: hidden;
+  font-size: 1.25cqw;
+  color: #888888;
+}
+
+.mockup-yc-search-text {
+  padding-left: 1.4cqw;
+}
+
+.mockup-yc-search-btn {
+  width: 5.5cqw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f8f8;
+  border-left: 1px solid #d3d3d3;
+  font-size: 1.7cqw;
+  color: #0f0f0f;
+}
+
+.mockup-yc-mic {
+  width: 3.4cqw;
+  height: 3.4cqw;
+  border-radius: 50%;
+  background: #f2f2f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4cqw;
+  filter: grayscale(1);
+}
+
+.mockup-yc-top-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 2cqw;
+}
+
+.mockup-yc-create {
+  background: #f2f2f2;
+  border-radius: 999px;
+  padding: 0.8cqw 1.5cqw;
+  font-size: 1.2cqw;
+  font-weight: 600;
+}
+
+.mockup-yc-bell {
+  position: relative;
+  font-size: 1.7cqw;
+  filter: grayscale(1);
+}
+
+.mockup-yc-badge {
+  position: absolute;
+  top: -0.6cqw;
+  right: -0.8cqw;
+  background: #cc0000;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 0 0.4cqw;
+  font-size: 0.85cqw;
+  font-family: Arial, sans-serif;
+  filter: none;
+}
+
+.mockup-yc-user {
+  width: 2.8cqw;
+  height: 2.8cqw;
+  border-radius: 50%;
+  background: #5e35b1;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3cqw;
+}
+
+/* En escritorio YouTube muestra la franja central de 2560 × 423 del archivo. */
+.mockup-yc-banner {
+  position: relative;
+  aspect-ratio: 2560 / 423;
+  border-radius: 1.2cqw;
+  overflow: hidden;
+  background: #e5e5e5;
+}
+
+.mockup-yc-banner-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.mockup-yc-head {
+  display: flex;
+  align-items: center;
+  gap: 1.7cqw;
+  margin-top: 2.2cqw;
+}
+
+.mockup-yc-avatar-big {
+  width: 14.5cqw;
+  height: 14.5cqw;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f7d64a, #b27cf0 55%, #3cc6e0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3cqw;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mockup-yc-title-row {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+}
+
+.mockup-yc-title {
+  margin: 0;
+  font-size: 3.2cqw;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.mockup-yc-note {
+  width: 2cqw;
+  height: 2cqw;
+  border-radius: 50%;
+  background: #0f0f0f;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1cqw;
+}
+
+.mockup-yc-meta,
+.mockup-yc-desc,
+.mockup-yc-links {
+  margin: 0.9cqw 0 0;
+  font-size: 1.3cqw;
+  color: #606060;
+}
+
+.mockup-yc-meta strong,
+.mockup-yc-links strong {
+  color: #0f0f0f;
+  font-weight: 600;
+}
+
+.mockup-yc-desc strong {
+  color: #0f0f0f;
+}
+
+.mockup-yc-link {
+  color: #065fd4;
+}
+
+.mockup-yc-subscribe {
+  display: inline-block;
+  margin-top: 1.6cqw;
+  background: #0f0f0f;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 0.95cqw 1.6cqw;
+  font-size: 1.25cqw;
+  font-weight: 600;
+}
+
+.mockup-yc-tabs {
+  display: flex;
+  align-items: center;
+  gap: 2.3cqw;
+  margin-top: 2.6cqw;
+  font-size: 1.45cqw;
+  font-weight: 600;
+  color: #606060;
+}
+
+.mockup-yc-tab-active {
+  color: #0f0f0f;
+}
+
+.mockup-yc-tab-search {
+  font-size: 1.8cqw;
+}
+
 /* Mockup: página de artista (Deezer / Amazon Music) */
 
 .mockup-scrim {

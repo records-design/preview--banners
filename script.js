@@ -303,72 +303,71 @@ function buildArtistHeaderMockup(platform) {
 }
 
 /**
- * Construye el mockup de canal de YouTube: recorte de zona segura sobre
- * la imagen y la barra de avatar / nombre / suscribirse debajo, tal como
- * se ve en la página real del canal.
+ * Construye el mockup de la página de canal de YouTube (escritorio): barra
+ * superior, banner con el recorte de escritorio (franja de 2560 × 423 del
+ * centro del archivo), foto de perfil redonda, nombre, datos del canal,
+ * botón Suscribirse y pestañas. Reemplaza al marco mientras está activo.
  */
-function buildYoutubeChannelMockup(platform) {
-  const overlay = document.createElement('div');
-  overlay.className = 'mockup-overlay mockup-yt-dim';
+function buildYoutubeChannelMockup() {
+  const page = el('div', 'mockup-page mockup-yc-page');
 
-  const safeGuide = platform.guides;
-  const safeLeft = (safeGuide.x[0] / platform.width) * 100;
-  const safeRight = 100 - (safeGuide.x[safeGuide.x.length - 1] / platform.width) * 100;
-  const safeTop = (safeGuide.y[0] / platform.height) * 100;
-  const safeBottom = 100 - (safeGuide.y[safeGuide.y.length - 1] / platform.height) * 100;
+  const top = el('div', 'mockup-yc-top');
+  const search = el('div', 'mockup-yc-search');
+  search.appendChild(el('span', 'mockup-yc-search-text', 'Buscar'));
+  search.appendChild(el('span', 'mockup-yc-search-btn', '⌕'));
+  top.appendChild(search);
+  top.appendChild(el('span', 'mockup-yc-mic', '🎙'));
+  const right = el('div', 'mockup-yc-top-right');
+  right.appendChild(el('span', 'mockup-yc-create', '＋ Crear'));
+  const bell = el('span', 'mockup-yc-bell', '🔔');
+  bell.appendChild(el('span', 'mockup-yc-badge', '3'));
+  right.appendChild(bell);
+  right.appendChild(el('span', 'mockup-yc-user', 'R'));
+  top.appendChild(right);
+  page.appendChild(top);
 
-  const safeBox = document.createElement('div');
-  safeBox.className = 'mockup-safe-dim';
-  safeBox.style.left = safeLeft + '%';
-  safeBox.style.right = safeRight + '%';
-  safeBox.style.top = safeTop + '%';
-  safeBox.style.bottom = safeBottom + '%';
-  overlay.appendChild(safeBox);
+  const banner = el('div', 'mockup-yc-banner');
+  const bannerImg = el('img', 'mockup-yc-banner-img');
+  bannerImg.alt = '';
+  banner.appendChild(bannerImg);
+  page.appendChild(banner);
 
-  const safeLabel = document.createElement('span');
-  safeLabel.className = 'mockup-safe-label';
-  safeLabel.textContent = 'Zona segura (visible en todos los dispositivos)';
-  overlay.appendChild(safeLabel);
+  const head = el('div', 'mockup-yc-head');
+  head.appendChild(el('div', 'mockup-yc-avatar-big', 'Foto'));
+  const info = el('div', 'mockup-yc-head-info');
+  const nameRow = el('div', 'mockup-yc-title-row');
+  nameRow.appendChild(el('h3', 'mockup-yc-title', 'Nombre del Canal'));
+  nameRow.appendChild(el('span', 'mockup-yc-note', '♪'));
+  info.appendChild(nameRow);
+  const meta = el('p', 'mockup-yc-meta');
+  meta.appendChild(el('strong', '', '@nombredelcanal'));
+  meta.appendChild(document.createTextNode(' • 35.6 k suscriptores • 692 videos'));
+  info.appendChild(meta);
+  const desc = el('p', 'mockup-yc-desc', '¡Hola! Descripción del canal ');
+  desc.appendChild(el('strong', '', '...más'));
+  info.appendChild(desc);
+  const links = el('p', 'mockup-yc-links');
+  links.appendChild(el('span', 'mockup-yc-link', '🔗 Spotify'));
+  links.appendChild(el('strong', '', ' y 4 vínculos más'));
+  info.appendChild(links);
+  info.appendChild(el('span', 'mockup-yc-subscribe', 'Suscribirse'));
+  head.appendChild(info);
+  page.appendChild(head);
 
-  const below = document.createElement('div');
-  below.className = 'mockup-below mockup-yt-below';
+  const tabs = el('div', 'mockup-yc-tabs');
+  ['Principal', 'Videos', 'Shorts', 'En vivo', 'Lanzamientos', 'Playlists', 'Publicaciones']
+    .forEach((t, i) => tabs.appendChild(el('span', i === 0 ? 'mockup-yc-tab-active' : '', t)));
+  tabs.appendChild(el('span', 'mockup-yc-tab-search', '⌕'));
+  page.appendChild(tabs);
 
-  const avatar = document.createElement('span');
-  avatar.className = 'mockup-yt-avatar';
-
-  const infoWrap = document.createElement('div');
-  infoWrap.className = 'mockup-yt-info';
-
-  const nameRow = document.createElement('div');
-  nameRow.className = 'mockup-yt-name-row';
-
-  const nameText = document.createElement('span');
-  nameText.className = 'mockup-yt-name';
-  nameText.textContent = 'Nombre del Canal';
-
-  const check = document.createElement('span');
-  check.className = 'mockup-yt-check';
-  check.textContent = '✓';
-
-  nameRow.appendChild(nameText);
-  nameRow.appendChild(check);
-
-  const subText = document.createElement('p');
-  subText.className = 'mockup-yt-sub';
-  subText.textContent = '@usuario · 128 K suscriptores · 42 videos';
-
-  infoWrap.appendChild(nameRow);
-  infoWrap.appendChild(subText);
-
-  const subBtn = document.createElement('span');
-  subBtn.className = 'mockup-yt-subscribe';
-  subBtn.textContent = 'Suscribirse';
-
-  below.appendChild(avatar);
-  below.appendChild(infoWrap);
-  below.appendChild(subBtn);
-
-  return { overlay, below };
+  return {
+    overlay: null,
+    below: null,
+    page,
+    setImage(src) {
+      bannerImg.src = src;
+    }
+  };
 }
 
 /**
