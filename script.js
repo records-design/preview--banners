@@ -81,19 +81,18 @@ const PLATFORMS = [
   },
   {
     id: 'amazon',
-    name: 'Amazon Music Artist Banner',
-    resolution: '1920 × 1440 px',
-    ratio: '4:3',
-    width: 1920,
+    name: 'Amazon Music Banner',
+    resolution: '2560 × 1440 px',
+    ratio: '16:9',
+    formats: 'JPG, JPEG, PNG',
+    width: 2560,
     height: 1440,
     image: 'assets/amazon.jpg',
     guides: {
-      x: [200, 960, 1720],
-      y: [120, 720, 1320]
+      x: [256, 1280, 2304],
+      y: [144, 720, 1296]
     },
-    mockupType: 'artist-header',
-    accent: '#00A8E1',
-    platformLabel: 'Amazon Music'
+    mockupType: 'amazon-desktop'
   }
 ];
 
@@ -464,7 +463,71 @@ function buildTidalDesktopMockup() {
   };
 }
 
+/**
+ * Construye el mockup de la página de Amazon Music (web): barra superior
+ * negra, banner de fondo muy oscurecido, portada cuadrada, tipo "ÁLBUM",
+ * título, artistas, datos, etiqueta ULTRA HD, botón Reproducir con iconos
+ * y lista de canciones. Reemplaza al marco mientras está activo.
+ */
+function buildAmazonDesktopMockup() {
+  const page = el('div', 'mockup-page mockup-am-page');
+
+  const nav = el('div', 'mockup-am-nav');
+  nav.appendChild(el('span', 'mockup-am-logo', 'amazon music'));
+  ['⌂ Inicio', '🎧 Música', '🎙 Podcasts', '♡ Biblioteca']
+    .forEach((t) => nav.appendChild(el('span', 'mockup-am-nav-item', t)));
+  const search = el('span', 'mockup-am-search', '⌕  Búsqueda');
+  nav.appendChild(search);
+  nav.appendChild(el('span', 'mockup-am-app', 'Descargar la app'));
+  nav.appendChild(el('span', 'mockup-am-login', 'Iniciar sesión'));
+  page.appendChild(nav);
+
+  const hero = el('div', 'mockup-am-hero');
+  const bg = el('img', 'mockup-am-bg');
+  bg.alt = '';
+  hero.appendChild(bg);
+  hero.appendChild(el('div', 'mockup-am-scrim'));
+
+  const content = el('div', 'mockup-am-content');
+  content.appendChild(el('div', 'mockup-am-cover', 'Portada'));
+  const info = el('div', 'mockup-am-info');
+  info.appendChild(el('span', 'mockup-am-type', 'ÁLBUM'));
+  info.appendChild(el('h3', 'mockup-am-title', 'Título del Álbum Vol.1'));
+  info.appendChild(el('p', 'mockup-am-artists', 'Nombre del Artista'));
+  info.appendChild(el('p', 'mockup-am-meta', '7 CANCIONES • 17 MINUTOS • 04 SEPT 2026'));
+  info.appendChild(el('span', 'mockup-am-uhd', 'ULTRA HD'));
+  const actions = el('div', 'mockup-am-actions');
+  actions.appendChild(el('span', 'mockup-am-play', '▶ Reproducir'));
+  ['⤨', '♡', '((•))', '⇪', '⚑'].forEach((t) => actions.appendChild(el('span', 'mockup-am-icon', t)));
+  info.appendChild(actions);
+  content.appendChild(info);
+  hero.appendChild(content);
+
+  const tracks = el('div', 'mockup-am-tracks');
+  [['Canción 1', '01:56'], ['Canción 2', '02:57']].forEach(([title, time], i) => {
+    const row = el('div', 'mockup-am-track');
+    row.appendChild(el('span', 'mockup-am-track-num', String(i + 1)));
+    row.appendChild(el('span', 'mockup-am-track-title', title));
+    row.appendChild(el('span', 'mockup-am-track-time', time));
+    row.appendChild(el('span', 'mockup-am-track-wave', '||||||||||'));
+    row.appendChild(el('span', 'mockup-am-track-actions', '♡   •••'));
+    tracks.appendChild(row);
+  });
+  hero.appendChild(tracks);
+  page.appendChild(hero);
+
+  return {
+    overlay: null,
+    below: null,
+    page,
+    setImage(src) {
+      bg.src = src;
+    }
+  };
+}
+
 const MOCKUP_BUILDERS = {
+  'amazon-desktop': buildAmazonDesktopMockup,
   'tidal-desktop': buildTidalDesktopMockup,
   'spotify-desktop': buildSpotifyDesktopMockup,
   'artist-header': buildArtistHeaderMockup,

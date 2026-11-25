@@ -752,6 +752,196 @@ body {
   font-size: 1.8cqw;
 }
 
+/* Mockup: página de Amazon Music (web) */
+
+.mockup-am-page {
+  container-type: inline-size;
+  background: #0f0f0f;
+  color: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+.mockup-am-nav {
+  display: flex;
+  align-items: center;
+  gap: 2.6cqw;
+  height: 3.6cqw;
+  padding: 0 0 0 0.8cqw;
+  background: #0b0b0b;
+  font-size: 1.15cqw;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.mockup-am-logo {
+  font-size: 1.5cqw;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.mockup-am-search {
+  margin-left: auto;
+  width: 19cqw;
+  background: #ffffff;
+  color: #111111;
+  border-radius: 999px;
+  padding: 0.6cqw 1.2cqw;
+  font-weight: 400;
+}
+
+.mockup-am-app {
+  background: #25d1da;
+  color: #0b0b0b;
+  border-radius: 999px;
+  padding: 0.6cqw 1cqw;
+  font-weight: 600;
+}
+
+.mockup-am-login {
+  background: #2c2c2c;
+  border-radius: 999px 0 0 999px;
+  padding: 0.6cqw 1cqw;
+  font-weight: 600;
+}
+
+/* Amazon usa el banner como fondo de la cabecera, muy oscurecido. */
+.mockup-am-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 2.6cqw 2.6cqw 0.5cqw;
+}
+
+.mockup-am-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
+
+.mockup-am-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(15, 15, 15, 0) 40%, rgba(15, 15, 15, 0.85) 100%),
+    rgba(20, 16, 12, 0.7);
+}
+
+.mockup-am-content,
+.mockup-am-tracks {
+  position: relative;
+}
+
+.mockup-am-content {
+  display: flex;
+  align-items: center;
+  gap: 1.7cqw;
+}
+
+.mockup-am-cover {
+  width: 17.6cqw;
+  height: 17.6cqw;
+  flex-shrink: 0;
+  border-radius: 0.8cqw;
+  background: linear-gradient(135deg, #f4c27a, #c56ad8 55%, #4a6ee0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3cqw;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.mockup-am-type {
+  font-size: 0.75cqw;
+  font-weight: 800;
+  color: #25d1da;
+  letter-spacing: 0.02em;
+}
+
+.mockup-am-title {
+  margin: 0.5cqw 0 0;
+  font-size: 2.3cqw;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.mockup-am-artists {
+  margin: 1cqw 0 0;
+  font-size: 1.15cqw;
+}
+
+.mockup-am-meta {
+  margin: 0.9cqw 0 0;
+  font-size: 0.85cqw;
+  color: #bdbdbd;
+}
+
+.mockup-am-uhd {
+  display: inline-block;
+  margin-top: 0.6cqw;
+  background: rgba(255, 255, 255, 0.25);
+  color: #d9d9d9;
+  font-size: 0.65cqw;
+  font-weight: 800;
+  padding: 0.15cqw 0.4cqw;
+  border-radius: 2px;
+}
+
+.mockup-am-actions {
+  display: flex;
+  align-items: center;
+  gap: 2.2cqw;
+  margin-top: 2cqw;
+}
+
+.mockup-am-play {
+  background: #25d1da;
+  color: #0b0b0b;
+  border-radius: 999px;
+  padding: 0.75cqw 1.2cqw;
+  font-size: 1.05cqw;
+  font-weight: 600;
+}
+
+.mockup-am-icon {
+  font-size: 1.4cqw;
+}
+
+.mockup-am-tracks {
+  margin-top: 2.2cqw;
+}
+
+.mockup-am-track {
+  display: grid;
+  grid-template-columns: 2.4cqw 1fr 12cqw 22cqw 6cqw;
+  align-items: center;
+  padding: 0.9cqw 0.6cqw;
+  font-size: 1.15cqw;
+}
+
+.mockup-am-track-num {
+  font-size: 0.85cqw;
+  color: #bdbdbd;
+}
+
+.mockup-am-track-time {
+  color: #bdbdbd;
+}
+
+.mockup-am-track-wave {
+  font-size: 0.6cqw;
+  color: #9a9a9a;
+  letter-spacing: -0.05em;
+}
+
+.mockup-am-track-actions {
+  text-align: right;
+  white-space: pre;
+}
+
 /* Mockup: página de artista (Deezer / Amazon Music) */
 
 .mockup-scrim {
