@@ -13,7 +13,6 @@ const PLATFORMS = [
     formats: 'JPG, JPEG, PNG',
     width: 2660,
     height: 1140,
-    image: 'assets/spotify.jpg',
     guides: {
       x: [150, 300, 1330, 2360, 2510],
       y: [80, 160, 570, 980, 1060]
@@ -28,7 +27,6 @@ const PLATFORMS = [
     formats: 'JPG, JPEG, PNG',
     width: 2400,
     height: 1600,
-    image: 'assets/tidal.jpg',
     guides: {
       x: [240, 1200, 2160],
       y: [160, 800, 1440]
@@ -42,7 +40,6 @@ const PLATFORMS = [
     ratio: '16:9',
     width: 2560,
     height: 1440,
-    image: 'assets/youtube-banner.jpg',
     guides: {
       x: [507, 1280, 2053],
       y: [509, 720, 932]
@@ -56,7 +53,6 @@ const PLATFORMS = [
     ratio: '16:9',
     width: 1280,
     height: 720,
-    image: 'assets/youtube-thumbnail.jpg',
     guides: {
       x: [160, 640, 1120],
       y: [100, 360, 620]
@@ -70,7 +66,6 @@ const PLATFORMS = [
     ratio: '2.55:1',
     width: 2400,
     height: 940,
-    image: 'assets/deezer.jpg',
     guides: {
       x: [300, 1200, 2100],
       y: [110, 470, 830]
@@ -87,7 +82,6 @@ const PLATFORMS = [
     formats: 'JPG, JPEG, PNG',
     width: 2560,
     height: 1440,
-    image: 'assets/amazon.jpg',
     guides: {
       x: [256, 1280, 2304],
       y: [144, 720, 1296]
@@ -166,6 +160,14 @@ function createGuideLabel(axis, position, total) {
  * debajo la barra de reproducción (play, aleatorio, Seguir, ···) y "Populares".
  * Reemplaza al marco de imagen mientras está activo.
  */
+function setImgSrc(img, src) {
+  if (src) {
+    img.src = src;
+  } else {
+    img.removeAttribute('src');
+  }
+}
+
 function el(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -226,7 +228,7 @@ function buildSpotifyDesktopMockup() {
     below: null,
     page,
     setImage(src) {
-      heroImg.src = src;
+      setImgSrc(heroImg, src);
     }
   };
 }
@@ -364,7 +366,7 @@ function buildYoutubeChannelMockup() {
     below: null,
     page,
     setImage(src) {
-      bannerImg.src = src;
+      setImgSrc(bannerImg, src);
     }
   };
 }
@@ -458,7 +460,7 @@ function buildTidalDesktopMockup() {
     below: null,
     page,
     setImage(src) {
-      bg.src = src;
+      setImgSrc(bg, src);
     }
   };
 }
@@ -521,7 +523,7 @@ function buildAmazonDesktopMockup() {
     below: null,
     page,
     setImage(src) {
-      bg.src = src;
+      setImgSrc(bg, src);
     }
   };
 }
@@ -576,10 +578,11 @@ function buildPlatformCard(platform) {
 
   const placeholder = document.createElement('div');
   placeholder.className = 'image-placeholder';
-  placeholder.textContent = 'Imagen no encontrada';
+  placeholder.textContent = 'Sin imagen: usá "Seleccionar imagen" para cargar un banner';
 
   img.addEventListener('error', () => {
     img.classList.add('hidden');
+    placeholder.textContent = 'No se pudo cargar la imagen';
     placeholder.classList.add('visible');
   });
 
@@ -587,13 +590,21 @@ function buildPlatformCard(platform) {
   let tempObjectUrl = null;
 
   function showImage(src) {
-    placeholder.classList.remove('visible');
-    img.classList.remove('hidden');
-    img.src = src;
     if (mockup.setImage) {
       mockup.setImage(src);
     }
+    if (!src) {
+      img.classList.add('hidden');
+      img.removeAttribute('src');
+      placeholder.textContent = 'Sin imagen: usá "Seleccionar imagen" para cargar un banner';
+      placeholder.classList.add('visible');
+      return;
+    }
+    placeholder.classList.remove('visible');
+    img.classList.remove('hidden');
+    img.src = src;
   }
+
 
   const guideOverlay = buildGuideOverlay(platform);
 
@@ -636,7 +647,7 @@ function buildPlatformCard(platform) {
   const restoreBtn = document.createElement('button');
   restoreBtn.className = 'btn btn-restore';
   restoreBtn.type = 'button';
-  restoreBtn.textContent = 'Restaurar original';
+  restoreBtn.textContent = platform.image ? 'Restaurar original' : 'Quitar imagen';
   restoreBtn.addEventListener('click', () => {
     if (tempObjectUrl) {
       URL.revokeObjectURL(tempObjectUrl);
@@ -663,6 +674,7 @@ function buildPlatformCard(platform) {
   viewBtn.type = 'button';
   viewBtn.textContent = 'Ver imagen completa';
   viewBtn.addEventListener('click', () => {
+    if (!img.getAttribute('src')) return;
     window.open(img.src, '_blank');
   });
 
