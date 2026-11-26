@@ -11,6 +11,8 @@ const PLATFORMS = [
     resolution: '2660 × 1140 px',
     ratio: '7:3',
     formats: 'JPG, JPEG, PNG',
+    // Ejemplo: banner de Las Trillizas de Oro
+    image: 'assets/spotify.jpg',
     width: 2660,
     height: 1140,
     guides: {
@@ -38,6 +40,8 @@ const PLATFORMS = [
     name: 'YouTube Channel Banner',
     resolution: '2560 × 1440 px',
     ratio: '16:9',
+    // Ejemplo: banner de Las Trillizas de Oro
+    image: 'assets/youtube-banner.jpg',
     width: 2560,
     height: 1440,
     guides: {
@@ -80,6 +84,8 @@ const PLATFORMS = [
     resolution: '2560 × 1440 px',
     ratio: '16:9',
     formats: 'JPG, JPEG, PNG',
+    // Ejemplo: banner de Las Trillizas de Oro
+    image: 'assets/amazon.jpg',
     width: 2560,
     height: 1440,
     guides: {
@@ -647,7 +653,7 @@ function buildPlatformCard(platform) {
   const restoreBtn = document.createElement('button');
   restoreBtn.className = 'btn btn-restore';
   restoreBtn.type = 'button';
-  restoreBtn.textContent = platform.image ? 'Restaurar original' : 'Quitar imagen';
+  restoreBtn.textContent = platform.image ? 'Volver al ejemplo' : 'Quitar imagen';
   restoreBtn.addEventListener('click', () => {
     if (tempObjectUrl) {
       URL.revokeObjectURL(tempObjectUrl);
@@ -731,7 +737,7 @@ function buildPlatformCard(platform) {
  *
  * `plataforma` acepta el id (spotify, tidal, youtube-banner, youtube-thumbnail,
  * deezer, amazon) o el nombre ("Spotify Header / Banner"). `imagen` es
- * opcional: sin ella se usa la imagen del proyecto. También se aceptan
+ * opcional: sin ella el mockup se muestra vacío (nunca el ejemplo). También se aceptan
  * `platform` e `image`. Con `plataforma`, se muestra solo esa tarjeta con
  * el mockup ya activado.
  */
@@ -777,7 +783,8 @@ function renderPlatforms() {
     return;
   }
 
-  const card = buildPlatformCard(imageParam ? { ...platform, image: imageParam } : platform);
+  // En modo link nunca se muestra el ejemplo: solo la imagen que manda el sistema.
+  const card = buildPlatformCard({ ...platform, image: imageParam || '' });
   list.appendChild(card);
 
   const mockupBtn = [...card.querySelectorAll('button')]
